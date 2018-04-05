@@ -16,32 +16,23 @@ require_once './classes/ImgDimension.php';
  </head>
  <body>
   <div class="container">
-   <?php
-
-   /*
-   $myFile = new FileManager('./export/test.txt');
-   $img = new ImgDimension();
-   $img->setSrcFolder('./image/src');
-   $img->setSrcFileNamePattern('*');
-   $img->setSrcFileFilyTpes('jpg','jpeg','png');
-   $img->setDestFolder('./image/dst');
-   $img->setDestFilePattern(ImgDim::FILENAME_RANDOM);
-   $img->setDestDimensions(ImgDim::DIMESNSION_AUTO);   
-   $img->setDstCompressionLevel(100);
-   $img->create();
-   
-    */
+   <?php   
    // FileManager::deleteFiles('./export/','txt');
    //sinnvoll ist, Quell- und Zieldatei im Konstruktor anzugeben
-   $img=new ImgDimension();
-   $img->setSrcFolder('./image/src/');
-//   $img->setSrcFileNamePattern('*');
-//   $img->setSrcFileFilyTpes('jpg','jpeg','png');
-//   $img->setDestFolder('./image/dst');
-//   $img->setDestFilePattern(ImgDim::FILENAME_RANDOM);
-//   $img->setDestDimensions(ImgDim::DIMESNSION_AUTO);   
-//   $img->setDstCompressionLevel(100);
-//   $img->create();
+   $img=new ImgDimension('./images/src/','./image/dst/');
+   $img->setSrcFolder('./images/src/');
+   $img->setDestDimensions(ImgDimension::DIMENSION_AUTO, 12);
+   $img->setSrcFileNamePattern('*');
+   $img->setSrcFileFileTypes(['jpg']);
+   $img->setDestFolder('./images/dst');
+   $img->setDestFileName(ImgDimension::FILENAME_RANDOM, 'tmb_');
+   $img->setDestDimensions(ImgDimension::DIMENSION_AUTO, 5);   
+   $img->setDstCompressionLevel(100);
+   $img->create();
+   $images=$img->findFiles();
+   var_dump($images);
+//   $images2= ImgDimension::staticFindFiles();
+//   var_dump($images2);
    ?> 
 
   </div>
