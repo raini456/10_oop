@@ -1,0 +1,25 @@
+
+Klasse Hund / Katze
+
+Eigenschaften
+
+geschützt gewicht (Standard 1kg)
+geschützt alter (Standard 0)
+öffentlich name (Setzen in der Konstruktor Funktion)
+
+Methode 
+
+öffentlich setzeName()
+öffentlich zeigeAlter()
+öffentlich zeigeGewicht()
+
+öffentlich fressen()  1kg zunehmen
+öffentlich laufen()   0.5kg abnehmen
+öffentlich rennen()   1kg abnehmen
+öffentlich altern()   1 Jahr älter werden
+
+geschützt kalkuliereGewicht()
+geschützt addAlter()
+
+
+
