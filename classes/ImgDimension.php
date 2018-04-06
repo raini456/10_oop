@@ -43,6 +43,30 @@ class ImgDimension {
     $this->dstFolder = $path;
   }
 
+  private function generateDstFileName($type, $prefix = '', $src = '', $idx = '') {
+    $dstFileName;
+    switch ($type) {
+      case 1: {
+          $dstFileName = $prefix . pathinfo($src)['filename']; //fetchs the name from the URL without type and path
+          break;
+        }
+      case 2: {//generates random Name
+          $dstFileName = $this->getRandName($prefix);
+          break;
+        }
+
+      case 3: {
+          $dstFileName = $prefix . $idx;
+          break;
+        }
+      default: {
+          $dstFileName = $prefix . pathinfo($src)['filename']; //as default fetchs the name from the URL without type and path
+          break;
+        }
+    }
+    return $dstFileName = "";
+  }
+
   public function setDestFileName(int $type, string $prefix = '') {
     $this->dstFileNameType = $type;
     $this->dstFileNamePrefix = $prefix;
@@ -84,15 +108,13 @@ class ImgDimension {
 
   public function execute() {
     $srcPaths = $this->findFiles();
-    foreach ($srcPaths as $srcPath) {
+    foreach ($srcPaths as $index => $srcPath) {
       $fileType = $this->getImageFileType($srcPath);
       $this->calcDstDimensions($this->dstW, $this->dstH, $srcPath);
+      $this->generateDstFileName($this->dstFileNameType, $this->dstFileNamePrefix, $srcPath, $index);
       printf($srcPath . "<br>");
       printf($fileType . "<br>");
     }
-
-//    Dimension neu berechnen
-    //var_dump($imgs);    
   }
 
   public function findFiles() {
@@ -108,6 +130,10 @@ class ImgDimension {
       return $types[$type];
     }
     return false;
+  }
+
+  private function getRandName($prefix = '') {
+    return str_replace('.', '_', uniqid($prefix, true));
   }
 
   /**
